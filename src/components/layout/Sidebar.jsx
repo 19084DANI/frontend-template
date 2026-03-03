@@ -1,7 +1,13 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, ShoppingBag, Users, LogOut } from 'lucide-react';
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const salir = ()=>{
+    localStorage.removeItem('token');
+    navigate('/login')
+
+  }
   const linkClass = ({ isActive }) =>
     `flex items-center gap-3 px-4 py-3 transition-all duration-200 rounded-lg mx-2 mb-1 ${
       isActive 
@@ -27,11 +33,14 @@ const Sidebar = () => {
         <NavLink to="/productos" className={linkClass}>
           <ShoppingBag size={20} /> Productos
         </NavLink>
+        <NavLink to="/login" className={linkClass}>
+          <ShoppingBag size={20} /> Login
+        </NavLink>        
       </nav>
 
       {/* Footer */}
       <div className="p-4 border-t border-slate-700">
-        <button className="flex items-center gap-3 text-red-400 hover:text-red-300 hover:bg-slate-800 w-full px-4 py-3 rounded-lg transition">
+        <button onClick={salir} className="flex items-center gap-3 text-red-400 hover:text-red-300 hover:bg-slate-800 w-full px-4 py-3 rounded-lg transition">
           <LogOut size={20} /> Salir
         </button>
       </div>
