@@ -35,10 +35,11 @@ const Productos = () => {
         stock: formData.get('stock'),
         descripcion: formData.get('descripcion'),
         imagen_url: formData.get('imagen_url'),
-        id_categoria: formData.get('id_categoria')
+        id_categoria: formData.get('id_categoria'),
+        youtube_id: formData.get('youtube_id')
       };
 
-      await api.post('productos', datos);
+      await api.post('productos/get', datos);
       e.target.reset();
       cargarProductos();
     } catch (e) {
@@ -84,6 +85,7 @@ const Productos = () => {
         <input name="imagen_url" placeholder="URL de la imagen" className="border p-2 rounded md:col-span-2" />
         <input name="id_categoria" type="number" placeholder="Categoría (1-4)" className="border p-2 rounded" required />
         <button type="submit" className="bg-blue-600 text-white rounded p-2 hover:bg-blue-700 md:col-span-3">
+        <input name="youtube_id" placeholder="YouTube ID (opcional)" className="border p-2 rounded md:col-span-3" />
           Subir Producto
         </button>
       </form>
@@ -112,6 +114,15 @@ const Productos = () => {
               <p className="text-slate-500 text-sm line-clamp-2 mb-4 flex-1">
                 {prod.descripcion || "Sin descripción disponible."}
               </p>
+              <iframe
+                width="560"
+                height="315"
+                src={`https://www.youtube.com/embed/${prod.youtube_id}`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
 
               <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-50">
                 <span className="text-xs font-medium text-slate-400">
